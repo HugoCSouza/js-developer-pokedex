@@ -1,6 +1,10 @@
 const pokemonList = document.getElementById('pokemonList')
 const loadMoreButton = document.getElementById('loadMoreButton')
-const detailsButtons = document.querySelectorAll(".buttonDetails")
+const divPrincipal = document.getElementById('alwayson')
+const detailsPokemonHtml = document.createElement("div")
+var childrensDivPrincipal = divPrincipal.childElementCount
+
+// console.log(detailsButtons)
 
 const maxRecords = 151
 const limit = 10
@@ -9,9 +13,7 @@ let offset = 0;
 function convertPokemonToLi(pokemon) {
     return `
         <li class="pokemon ${pokemon.type}">
-            <button id="details${pokemon.type}" class="buttonDetails" type="button">
-                Details
-            </button>
+            <button class="buttonDetails" type="button" onclick="getDetails('${pokemon.number}')"></button>
             <span class="number">#${pokemon.number}</span>
             <span class="name">${pokemon.name}</span>
 
@@ -39,6 +41,7 @@ loadPokemonItens(offset, limit)
 loadMoreButton.addEventListener('click', () => {
     offset += limit
     const qtdRecordsWithNexPage = offset + limit
+    
 
     if (qtdRecordsWithNexPage >= maxRecords) {
         const newLimit = maxRecords - offset
@@ -50,10 +53,46 @@ loadMoreButton.addEventListener('click', () => {
     }
 })
 
-detailsButtons.forEach(button => {
-    console.log('oi')
-    detailsButtons.addEventListener('click', () =>{
-        console.log(`Clicou o botão ${button.id}`);
-    })
-});
+detailsPokemonHtml.id = 'allDetails'
+
+function getDetails(numberPokemon){
+    pokeApi.getPokemons(numberPokemon-1,0).then((pokemon) =>{
+        if(childrensDivPrincipal === 2){
+            divPrincipal.removeChild(detailsPokemonHtml)
+            detailsPokemonHtml.innerHTML = ''
+        }
+        pokemon = pokemon[0]
+        detailsPokemonHtml.innerHTML += convertPokemonToDetailsHtml(pokemon)
+        divPrincipal.appendChild(detailsPokemonHtml)
+        childrensDivPrincipal = divPrincipal.childElementCount
+        console.log(childrensDivPrincipal == 2)
+    });
+};
+
+function convertPokemonToDetailsHtml(pokemon){
+    return `
+    <div class = "alldetails ${pokemon.type}">
+        <h1> ${pokemon.name} </h1>
+        <div id = "numberDetails" >Number: #${pokemon.number}</div> 
+        <div id = "typesDetails" class="${pokemon.type}">
+        <h2>Types:</h2> 
+        <ol class="types">
+            ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
+        </ol>
+        </div>
+        <div id = "photoComplete">      
+        <img src="${pokemon.photoComplete}"
+                     alt="${pokemon.name}">
+        </div>
+        <div class = "allMoves">Moves: 
+        <ol class="moves">
+            ${pokemon.moves.map((move) => `<li class="type ${move}">${move}</li>`).join('')}
+        </ol>
+        </div>
+
+        
+    </div>
+`
+};
+
     

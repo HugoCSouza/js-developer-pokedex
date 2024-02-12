@@ -139,7 +139,7 @@
 
 .pokemon .detail img {
     max-width: 100%;
-    height: 70px;
+    height: 6rem;
 }
 
 .pagination {
@@ -160,6 +160,94 @@
     border: none;
     border-radius: 1rem;
 }
+
+h1{
+    width: auto;
+}
+
+#alwayson {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+}
+
+#principal{
+    width: auto;
+}
+
+#opendetails{
+    width: 35%;
+}
+
+#numberDetails{
+    text-align: right;
+}
+
+#typesDetails{
+    filter: brightness(1.3);
+}
+
+#typesDetails ol{
+    padding: 0;
+    padding-left: 10px;
+    margin: 0;
+    text-transform: capitalize;
+}
+
+#photoComplete{
+    display: flex;
+    align-items: center;
+}
+
+#allMoves{
+    display: flex;
+}
+
+.allMoves ol{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-size: small;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.allMoves ol li{
+    border: solid 1px purple
+}
+
+
+#allDetails{
+    width: 35%;
+    height: 300px;
+    padding: 10px;
+    align-items: center;
+}
+
+#allDetails #class span{
+    text-align: justify;
+    text-transform: capitalize;
+}
+
+#allDetails h1{
+    font-size: xx-large;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+#allDetails img {
+    max-width: 100%;
+    height: 85%;
+    align-items: center;
+}
+
+#allDetails ol{
+    align-items: end;
+    list-style: none;
+}
+
+
+
 
 @media screen and (min-width: 380px) {
     .pokemons {
